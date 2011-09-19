@@ -1,0 +1,28 @@
+Demonstrate new error introduced with upgrade to cascalog-1.8.0.
+
+To see the fireworks:
+
+  $ lein deps, run outdir
+
+The interesting bit of stacktrace looks like:
+
+  Caused by: cascading.flow.PlannerException: could not build flow from assembly: [[TextDelimited[['a', 'b...][sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)] unable to resolve scheme sink selector: [{1}:'a'], with incoming: [{3}:'?a', '?b', '?c']]
+          at cascading.flow.MultiMapReducePlanner.buildFlow(MultiMapReducePlanner.java:242)
+          at cascading.flow.FlowConnector.connect(FlowConnector.java:531)
+          at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+          at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+          at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+          at java.lang.reflect.Method.invoke(Method.java:597)
+          at clojure.lang.Reflector.invokeMatchingMethod(Reflector.java:90)
+          at clojure.lang.Reflector.invokeInstanceMethod(Reflector.java:28)
+          at cascalog.api$compile_flow.doInvoke(api.clj:155)
+          at clojure.lang.RestFn.applyTo(RestFn.java:137)
+          at clojure.core$apply.invoke(core.clj:540)
+          at cascalog.api$_QMARK__.doInvoke(api.clj:167)
+          at clojure.lang.RestFn.invoke(RestFn.java:436)
+          at cascalog_18_upgrade.core$_main.doInvoke(core.clj:26)
+          at clojure.lang.RestFn.invoke(RestFn.java:408)
+          at clojure.lang.Var.invoke(Var.java:365)
+          at user$eval39.invoke(NO_SOURCE_FILE:1)
+          at clojure.lang.Compiler.eval(Compiler.java:5424)
+          ... 12 more
